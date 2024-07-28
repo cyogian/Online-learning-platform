@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="/css/main.css">
+
+</head>
+
+<body>
+    <header class="main-header">
+        <nav class="main-header__nav">
+            <ul class="main-header__item-list">
+                <li class="main-header__item"><a href="/">Home</a></li>
+                <li class="main-header__item"><a href="/courses">Courses</a></li>
+                <li class="main-header__item"><a href="/hire">Hire with Us</a></li>
+                <li class="main-header__item"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__item"><a href="/contact-us">Contact Us</a></li>
+                <li class="main-header__item"><a href="/products">Products</a></li>
+                <li class="main-header__item"><a href="/cart" class="active">Cart</a></li>
+
+
+            </ul>
+        </nav>
+    </header>
+    <main class="centered">
+        <h1>Your Cart</h1>
+        <ul class="cart-list" id="cart-list">
+            <!-- Cart items will be populated here by JavaScript -->
+        </ul>
+        <h3  id="total-price"><strong>Total Price: $0</strong></h3>
+    </main>
+    <script>
+       document.addEventListener('DOMContentLoaded', function () {
+            function loadCart() {
+                fetch('/cart-data')
+                    .then(response => response.json())
+                    .then(cart => {
+                        const cartList = document.getElementById('cart-list');
+                        cartList.innerHTML = '';
+                        cart.products.forEach(product => {
+                            const cartItem = document.createElement('div');
+                            cartItem.classList.add('cart-item');
+                            cartItem.innerHTML = `
+                                <h2>${product.name}</h2>
+                                <img src="${product.image}" alt="${product.name}">
+                                <p>Quantity: ${product.quantity}</p>
+                                <p>Price: $${product.price}</p>
+                                 <button class="edit-cart-btn" data-id="${product.productId}" onclick="editCartItem(event)">Edit</button>
+                                <button class="delete-cart-btn" data-id="${product.productId}" onclick="removeFromCart(event)">Delete</button>
+                            `;
+                            cartList.appendChild(cartItem);
+                        });
+                        document.getElementById('total-price').textContent = `Total Price: $${cart.totalPrice}`;
+                    })
+                    .catch(error => console.error('Error fetching cart data:', error));
+            }
+            function removeFromCart(event) {
+                const productId = event.target.getAttribute('data-id');
+                fetch('/remove-from-cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId: productId,})
+                })
+                    .then(response => {
+                        if (response.ok) {
+                            return response.json();
+            }
+            throw new Error('Failed to remove from cart');
+        })
+        .then(data => {
+            console.log(data.message); 
+            loadCart(); 
+        })
+        .catch(error => console.error('Error removing from cart:', error));
+    };
+    window.removeFromCart = removeFromCart;
+ function editCartItem(event) {
+                const productId = event.target.getAttribute('data-id');
+                const newQty = prompt('Enter new quantity:');
+                
+                if (newQty !== null) {
+                    fetch('/edit-cart-item', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            productId: productId,
+                            newQty: parseInt(newQty)
+                        })
+                    })
+                    .then(response => {
+                        if (response.ok) {
+                            loadCart(); 
+                        } else {
+                            throw new Error('Failed to edit cart item');
+                        }
+                    })
+                    .catch(error => console.error('Error editing cart item:', error));
+                }
+            }
+            window.editCartItem = editCartItem;
+            loadCart();
+        });
+    </script>
+</body>
+</html>

@@ -194,7 +194,7 @@ exports.AddNewProduct = (req, res, next) => {
     })
     .then(result => {
         console.log('Product created successfully:', result);
-        res.redirect('/'); 
+        res.status(201).json({ product: result });
     })
     .catch(err => {
         console.error('Error creating product:', err);

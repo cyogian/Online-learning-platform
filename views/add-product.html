@@ -13,7 +13,7 @@
                 <li class="main-header__item"><a href="/">Home</a></li>
                 <li class="main-header__item"><a href="/courses">Courses</a></li>
                 <li class="main-header__item"><a href="/hire">Hire with Us</a></li>
-                <li class="main-header__item"><a class="active" href="/admin/add-product">Add Product</a></li>
+                <li class="main-header__item"><a class="active" href="/add-product">Add Product</a></li>
                 <li class="main-header__item"><a href="/contact-us">Contact Us</a></li>
                 <li class="main-header__item"><a href="/products">Products</a></li>
                 <li class="main-header__item"><a href="/cart">Cart</a></li>
@@ -41,6 +41,7 @@
 
         <button type="submit">Add Product</button>
     </form>
+    <div id="product-list"></div>
     </main>
     <script>
         document.getElementById('add-product-form').addEventListener('submit', function(event) {
@@ -55,7 +56,7 @@
                 description: formData.get('description')
             };
 
-            fetch('/admin/add-product', {
+            fetch('/add-product', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -64,8 +65,12 @@
             })
             .then(response => {
             if (response.ok) {
+                window.location.href = '/products';
                 return response.json();
             }
+            else {
+                    alert('Error: ' + response.status);
+                }
         })
         .then(data => {
             const productList = document.getElementById('product-list');

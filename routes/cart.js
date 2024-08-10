@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../models/Cart.js');
-const Product = require('../models/Product.js');
+const Cart = require('../models/cart.js');
+const Product = require('../models/product.js');
 
 router.post('/addToCart', async (req, res) => {
     try {

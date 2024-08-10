@@ -1,17 +1,17 @@
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const errorController = require('./controllers/error');
-const sequelize = require('./util/database');
+const errorController = require('./controllers/error.js');
+const sequelize = require('./util/database.js');
 
-const shopRoutes = require('./routes/shop');
-const successRoutes = require('./routes/success');
-const cartRoutes = require('./routes/cart'); 
+const shopRoutes = require('./routes/shop.js');
+const successRoutes = require('./routes/success.js');
+const cartRoutes = require('./routes/cart.js'); 
 
-const User = require('./models/User');
-const Product = require('./models/Product');
-const Cart = require('./models/Cart');
-const CartItem = require('./models/CartItem');
+const User = require('./models/User.js');
+const Product = require('./models/Product.js');
+const Cart = require('./models/Cart.js');
+const CartItem = require('./models/CartItem.js');
 
 const app = express();
 app.use(express.json());

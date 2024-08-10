@@ -8,10 +8,10 @@ const shopRoutes = require('./routes/shop');
 const successRoutes = require('./routes/success');
 const cartRoutes = require('./routes/cart'); 
 
-const Product = require('./models/product');
 const User = require('./models/User');
-const Cart = require('./models/cart');
-const CartItem = require('./models/cartItems');
+const Product = require('./models/Product');
+const Cart = require('./models/Cart');
+const CartItem = require('./models/CartItem');
 
 const app = express();
 app.use(express.json());
@@ -39,12 +39,12 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart, {through: CartItem});
 
-sequelize
-.sync()
+sequelize.sync({force: true})
 .then(result => {
   return User.findByPk(1);
 })
 .then(user=>{
+    console.log('reaching')
     if(!user){
         return User.create({name: 'FangLeng', email: 'fang@gmail.com'})
     }
@@ -54,12 +54,10 @@ sequelize
     return user.createCart();
 })
 .then(cart=>{
-    app.listen(7000, () => {
-        console.log('Server is running on port 7000');
+    app.listen(8000, () => {
+        console.log('Server is running on port 8000');
     });
 })
 .catch(err => {
     console.log(err);
 });
-
-

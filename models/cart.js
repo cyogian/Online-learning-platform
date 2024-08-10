@@ -1,18 +1,18 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../util/database');
 
-const Cart = sequelize.define('Cart', {
+const Cart = sequelize.define('cart', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     userId: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: 'User', 
+            model: 'users', 
             key: 'id'
         },
         onDelete: 'CASCADE'

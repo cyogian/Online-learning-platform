@@ -1,31 +1,31 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../util/database');
 
-const Contact = sequelize.define('Contact', {
+const Contact = sequelize.define('contact', {
     id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         allowNull: false,
         primaryKey: true
     },
     name: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     email: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     phone: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     date: {
-        type: Sequelize.DATEONLY,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     time: {
-        type: Sequelize.TIME,
+        type: DataTypes.TIME,
         allowNull: false
     }
 });

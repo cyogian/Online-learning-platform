@@ -9,14 +9,13 @@ const {
     DB_USER,
     DB_PASSWORD,
 } = process.env
-
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
     host: DB_HOST,
     port: DB_PORT,
     dialect: DIALECT,
     dialectOptions: {
         ssl: {
-            ca: fs.readFileSync(__dirname + '/mysql-ca.pem')
+            ca: fs.readFileSync('mysql-ca.pem')
         }
     },
 });

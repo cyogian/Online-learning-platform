@@ -46,4 +46,5 @@ CourseProduct.findProductById = async (id) => {
     }
 };
 
+
 module.exports = CourseProduct;

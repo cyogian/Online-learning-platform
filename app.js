@@ -8,10 +8,10 @@ const shopRoutes = require('./routes/shop.js');
 const successRoutes = require('./routes/success.js');
 const cartRoutes = require('./routes/cart.js'); 
 
-const User = require('./models/user.js');
-const Product = require('./models/product.js');
-const Cart = require('./models/cart.js');
-const CartItem = require('./models/cartitem.js');
+const User = require('./model/user.js');
+const Product = require('./model/Product.js');
+const Cart = require('./model/Cart.js');
+const CartItem = require('./model/cartitem.js');
 
 const app = express();
 app.use(express.json());

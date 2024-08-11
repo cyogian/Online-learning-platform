@@ -1,10 +1,10 @@
 const path = require('path');
-const User = require('../models/user.js');
-const Cart = require('../models/cart.js');
-const Product = require('../models/product.js');
-const CourseProduct = require('../models/courseproduct.js');
-const Contact = require('../models/contact.js');
-const CartItem = require('../models/cartitem.js');
+const User = require('../model/user.js');
+const Cart = require('../model/Cart.js');
+const Product = require('../model/Product.js');
+const CourseProduct = require('../model/courseproduct.js');
+const Contact = require('../model/contact.js');
+const CartItem = require('../model/cartitem.js');
 
 // Render the home page
 exports.getHome = (req, res, next) => {

@@ -30,4 +30,5 @@ const Contact = sequelize.define('contact', {
     }
 });
 
+
 module.exports = Contact;
